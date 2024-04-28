@@ -6,7 +6,7 @@ Exposed endpoints are in CLI and API Controller.
 
 ### Features
 
-* It's NOT DDD! Classes are segregated for some visibility reason, but application not implementing Domain Driven Design
+* It's NOT DDD! Classes are segregated for some visibility reason, but application not implementing Domain Driven Design - it's overkill at this stage
 * Book module connects to OpenLibrary API. It can get 10 books and show them as an output for given search criteria (author, title). Searching cna be sorted ascending or descending
 * CLI command (inside container) `php  bin/console app:open-library:search`
 * Some empty unit tests to show what needs to be tested (not only success paths)
