@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Book\Search;
+namespace App\Book\Shared\Search;
 
 use App\Book\Shared\DTO\BookSearchCriteria;
 
-interface SearchBuilderInterface
+interface BookSearchQueryBuilder
 {
     public function addTitle(BookSearchCriteria $bookSearchCriteria): self;
 

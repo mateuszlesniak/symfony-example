@@ -2,11 +2,11 @@
 
 namespace App\Book\OpenLibrary\SearchQuery;
 
-use App\Book\Search\SearchBuilderInterface;
 use App\Book\Shared\DTO\BookSearchCriteria;
 use App\Book\Shared\Exception\InvalidSearchDataException;
+use App\Book\Shared\Search\BookSearchQueryBuilder;
 
-class SearchBuilder implements SearchBuilderInterface
+class BookSearchBuilder implements BookSearchQueryBuilder
 {
     const FIELD_TITLE = 'title';
     const FIELD_AUTHOR = 'author';
@@ -19,21 +19,21 @@ class SearchBuilder implements SearchBuilderInterface
         'limit' => 10,
     ];
 
-    #[\Override] public function addTitle(BookSearchCriteria $bookSearchCriteria): SearchBuilderInterface
+    #[\Override] public function addTitle(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
     {
         $this->data[self::FIELD_TITLE] = mb_strtolower($bookSearchCriteria->getTitle());
 
         return $this;
     }
 
-    #[\Override] public function addAuthor(BookSearchCriteria $bookSearchCriteria): SearchBuilderInterface
+    #[\Override] public function addAuthor(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
     {
         $this->data[self::FIELD_AUTHOR] = mb_strtolower($bookSearchCriteria->getAuthor());
 
         return $this;
     }
 
-    #[\Override] public function sort(BookSearchCriteria $bookSearchCriteria): SearchBuilderInterface
+    #[\Override] public function sort(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
     {
         switch ($bookSearchCriteria->getSort()) {
             case BookSearchCriteria::OPTION_SEARCH_ASC:
