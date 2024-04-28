@@ -24,9 +24,9 @@ final class GetBooksController extends AbstractController
     #[Route('/api/books', name: 'api_get_books', format: 'json')]
     public function __invoke(
         #[MapQueryString(
-            validationGroups: ['strict', 'edit'],
+            validationGroups: ['strict'],
             validationFailedStatusCode: Response::HTTP_UNPROCESSABLE_ENTITY
-        )] BookSearchCriteria $bookSearchCriteria,
+        )] BookSearchCriteria $bookSearchCriteria = new BookSearchCriteria(),
     ): JsonResponse {
         try {
             $books = $this->bookApi->searchBooks($bookSearchCriteria);

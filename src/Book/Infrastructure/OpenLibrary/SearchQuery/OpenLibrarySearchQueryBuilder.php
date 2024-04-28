@@ -71,7 +71,7 @@ final class OpenLibrarySearchQueryBuilder implements BookSearchQueryBuilder
             return !empty($row);
         });
 
-        if (count($searchQuery) < 2) {
+        if (count($searchQuery) < 3) {
             throw new InvalidSearchDataException();
         }
 
