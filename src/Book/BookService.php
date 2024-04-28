@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Book;
 
 use App\Book\OpenLibrary\DTO\BookDTO;
@@ -10,8 +12,6 @@ use App\Book\Shared\Exception\InvalidSearchDataException;
 interface BookService
 {
     /**
-     * @param BookSearchCriteria $bookSearchCriteria
-     *
      * @return array<BookDTO>
      *
      * @throws CannotReachServiceException

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Book\Shared\DTO;
 
 use App\Book\Shared\Exception\InvalidSearchCriteriaException;
@@ -39,9 +41,6 @@ class BookSearchCriteria
     }
 
     /**
-     * @param string $sort
-     * @return void
-     *
      * @throws InvalidSearchCriteriaException
      */
     public function setSort(string $sort): void

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Book\OpenLibrary\Transformer;
 
 use App\Book\OpenLibrary\Client\OpenLibraryFactory;
@@ -9,12 +11,12 @@ final readonly class OpenLibraryResponseTransformer
 {
     public function __construct(
         private OpenLibraryFactory $openLibraryFactory,
-    )
-    {
+    ) {
     }
 
     /**
      * @param array<mixed> $response
+     *
      * @return array<BookDTO>
      */
     public function transformResponseToBookDTO(array $response): array

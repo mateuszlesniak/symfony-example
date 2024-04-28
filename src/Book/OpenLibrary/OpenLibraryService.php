@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Book\OpenLibrary;
 
 use App\Book\BookService;
@@ -18,19 +20,17 @@ final readonly class OpenLibraryService implements BookService
         private BookSearchQueryBuilder $builder,
         private OpenLibraryClient $openLibraryApi,
         private OpenLibraryResponseTransformer $responseTransformer,
-    )
-    {
+    ) {
     }
 
     /**
-     * @param BookSearchCriteria $bookSearchCriteria
-     *
      * @return array<BookDTO>
      *
      * @throws CannotReachServiceException
      * @throws InvalidSearchDataException
      */
-    #[\Override] public function searchBooks(BookSearchCriteria $bookSearchCriteria): array
+    #[\Override]
+    public function searchBooks(BookSearchCriteria $bookSearchCriteria): array
     {
         $this->builder
             ->addTitle($bookSearchCriteria)
@@ -46,7 +46,5 @@ final readonly class OpenLibraryService implements BookService
         } catch (ExceptionInterface $exception) {
             throw new CannotReachServiceException();
         }
-
     }
-
 }

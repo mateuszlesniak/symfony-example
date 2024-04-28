@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Book\Shared\Exception;
 
-use Exception;
-
-class InvalidSearchCriteriaException extends Exception
+class InvalidSearchCriteriaException extends \Exception
 {
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Book\UI\Command;
 
 use App\Book\BookService;
@@ -18,18 +20,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'app:open-library:search')]
 final class OpenLibrarySearchCommand extends Command
 {
-
     public function __construct(
         private readonly BookService $bookApi,
         private readonly BookFormatter $bookFormatter,
         /** @var BookSearchCommandParameter[] $searchOptionPlugins */
         private readonly iterable $searchOptionPlugins,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
-    #[\Override] protected function configure()
+    #[\Override]
+    protected function configure()
     {
         $this
             ->setDescription('CLI command which allows search books in Open Library website')
@@ -39,9 +40,9 @@ final class OpenLibrarySearchCommand extends Command
             ->addOption(Parameters::SORT->value, null, InputArgument::OPTIONAL);
     }
 
-    #[\Override] protected function execute(InputInterface $input, OutputInterface $output): int
+    #[\Override]
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-
         try {
             $bookSearchCriteria = $this->getSearchCriteria($input);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Book\UI\Command\Parameter;
 
 use App\Book\Shared\DTO\BookSearchCriteria;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Book\UI\Command\Parameter;
 
 use App\Book\Shared\DTO\BookSearchCriteria;
@@ -9,7 +11,8 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class SortSearchPlugin implements BookSearchCommandParameter
 {
-    #[\Override] public function expand(InputInterface $input, BookSearchCriteria &$bookSearchCriteria): void
+    #[\Override]
+    public function expand(InputInterface $input, BookSearchCriteria &$bookSearchCriteria): void
     {
         if ($input->hasOption(Parameters::SORT->value)) {
             $sorting = $input->getOption(Parameters::SORT->value);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Book\OpenLibrary\SearchQuery;
 
 use App\Book\Shared\DTO\BookSearchCriteria;
@@ -8,9 +10,9 @@ use App\Book\Shared\Search\BookSearchQueryBuilder;
 
 final class BookSearchBuilder implements BookSearchQueryBuilder
 {
-    const FIELD_TITLE = 'title';
-    const FIELD_AUTHOR = 'author';
-    const FIELD_SORT = 'sort';
+    public const FIELD_TITLE = 'title';
+    public const FIELD_AUTHOR = 'author';
+    public const FIELD_SORT = 'sort';
 
     private array $data = [
         self::FIELD_AUTHOR => null,
@@ -19,21 +21,24 @@ final class BookSearchBuilder implements BookSearchQueryBuilder
         'limit' => 10,
     ];
 
-    #[\Override] public function addTitle(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
+    #[\Override]
+    public function addTitle(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
     {
         $this->data[self::FIELD_TITLE] = mb_strtolower($bookSearchCriteria->getTitle());
 
         return $this;
     }
 
-    #[\Override] public function addAuthor(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
+    #[\Override]
+    public function addAuthor(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
     {
         $this->data[self::FIELD_AUTHOR] = mb_strtolower($bookSearchCriteria->getAuthor());
 
         return $this;
     }
 
-    #[\Override] public function sort(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
+    #[\Override]
+    public function sort(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
     {
         switch ($bookSearchCriteria->getSort()) {
             case BookSearchCriteria::OPTION_SEARCH_ASC:
@@ -55,7 +60,8 @@ final class BookSearchBuilder implements BookSearchQueryBuilder
      *
      * @throws InvalidSearchDataException
      */
-    #[\Override] public function getSearchQuery(): array
+    #[\Override]
+    public function getSearchQuery(): array
     {
         $searchQuery = array_filter($this->data, function ($row) {
             return !empty($row);
@@ -67,5 +73,4 @@ final class BookSearchBuilder implements BookSearchQueryBuilder
 
         return $searchQuery;
     }
-
 }

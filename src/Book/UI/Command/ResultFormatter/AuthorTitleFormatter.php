@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Book\UI\Command\ResultFormatter;
 
 use App\Book\OpenLibrary\DTO\BookDTO;
 
 final class AuthorTitleFormatter implements BookFormatter
 {
-    #[\Override] public function format(BookDTO $bookDTO): string
+    #[\Override]
+    public function format(BookDTO $bookDTO): string
     {
         return sprintf(
             '<fg=green>%s</> - <fg=yellow>%s</>',
