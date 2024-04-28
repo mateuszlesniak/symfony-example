@@ -24,7 +24,9 @@ final class BookSearchBuilder implements BookSearchQueryBuilder
     #[\Override]
     public function addTitle(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
     {
-        $this->data[self::FIELD_TITLE] = mb_strtolower($bookSearchCriteria->getTitle());
+        if ($bookSearchCriteria->getTitle()) {
+            $this->data[self::FIELD_TITLE] = mb_strtolower($bookSearchCriteria->getTitle());
+        }
 
         return $this;
     }
@@ -32,7 +34,9 @@ final class BookSearchBuilder implements BookSearchQueryBuilder
     #[\Override]
     public function addAuthor(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
     {
-        $this->data[self::FIELD_AUTHOR] = mb_strtolower($bookSearchCriteria->getAuthor());
+        if ($bookSearchCriteria->getAuthor()) {
+            $this->data[self::FIELD_AUTHOR] = mb_strtolower($bookSearchCriteria->getAuthor());
+        }
 
         return $this;
     }
