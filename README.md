@@ -1,11 +1,17 @@
-# Symfony Docker
+# Symfony example application
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
+Application created to show some of my skills in coding.
+Example implementation for Book module, which can retrieve 10 books for search criteria.
+Exposed endpoints are in CLI and API Controller.
 
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+### Features
 
-## Getting Started
+* It's NOT DDD! Classes are segregated for some visibility reason, but application not implementing Domain Driven Design
+* Book module connects to OpenLibrary API. It can get 10 books and show them as an output for given search criteria (author, title). Searching cna be sorted ascending or descending
+* CLI command (inside container) `php  bin/console app:open-library:search`
+* Some empty unit tests to show what needs to be tested (not only success paths)
+
+## Installation
 
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
 2. Run `docker compose build --no-cache` to build fresh images
@@ -15,7 +21,17 @@ with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) 
 
 > More info: https://github.com/dunglas/symfony-docker
 
-## Features
+## FAQ
 
-* CLI command (inside container) `php  bin/console app:open-library:search`
-* Some empty unit tests to show what needs to be tested (not only success paths)
+* Is application really working?
+    > Yes! You can test it on your own! Just follow steps in installation section
+
+* Why you don't wrote any tests?
+    > I can create mocks, stubs, then write expectations for them and test real classes from project.
+
+* How long did you prepare configuration for this project?
+    > Most of the things are preconfigured (Symfony docker, PHP Unit, PHP CS Fixer). I've only added necessary things for my changes
+
+* Will it be updated in future?
+    > Maybe :)
+

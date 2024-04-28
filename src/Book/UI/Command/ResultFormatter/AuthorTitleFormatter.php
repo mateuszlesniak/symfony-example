@@ -23,7 +23,7 @@ final class AuthorTitleFormatter implements BookFormatter
         $authors = trim(implode(', ', $bookDTO->getAuthors()));
 
         if (empty($authors)) {
-            return 'Unknown author';
+            return BookDTO::getUnknownAuthor();
         }
 
         return $authors;
@@ -31,6 +31,6 @@ final class AuthorTitleFormatter implements BookFormatter
 
     private function getBookTitle(BookDTO $bookDTO): string
     {
-        return $bookDTO->getTitle() ?? ' Unknown title';
+        return $bookDTO->getTitle() ?? BookDTO::getUnknownTitle();
     }
 }
