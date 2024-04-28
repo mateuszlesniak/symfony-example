@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\unit\Book\Command;
+
 use PHPUnit\Framework\TestCase;
 
 class OpenLibrarySearchCommandTest extends TestCase

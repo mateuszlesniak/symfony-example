@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenLibrary;
+namespace App\Tests\unit\Book\OpenLibrary;
 
 use PHPUnit\Framework\TestCase;
 
