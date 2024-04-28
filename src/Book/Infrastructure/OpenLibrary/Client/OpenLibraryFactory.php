@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Book\OpenLibrary\Client;
+namespace App\Book\Infrastructure\OpenLibrary\Client;
 
-use App\Book\OpenLibrary\DTO\BookDTO;
+use App\Book\Application\Service\DTO\BookDTO;
 
 class OpenLibraryFactory
 {

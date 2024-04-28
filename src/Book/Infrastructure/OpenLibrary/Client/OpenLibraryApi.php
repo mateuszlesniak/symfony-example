@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Book\OpenLibrary\Client;
+namespace App\Book\Infrastructure\OpenLibrary\Client;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Book\Shared\Search;
+namespace App\Book\Application\SearchQuery;
 
-use App\Book\Shared\DTO\BookSearchCriteria;
-use App\Book\Shared\Exception\InvalidSearchDataException;
+use App\Book\Application\Exception\InvalidSearchDataException;
+use App\Book\Infrastructure\DTO\BookSearchCriteria;
 
 interface BookSearchQueryBuilder
 {

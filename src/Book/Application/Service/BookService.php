@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Book;
+namespace App\Book\Application\Service;
 
-use App\Book\OpenLibrary\DTO\BookDTO;
-use App\Book\Shared\DTO\BookSearchCriteria;
-use App\Book\Shared\Exception\CannotReachServiceException;
-use App\Book\Shared\Exception\InvalidSearchDataException;
+use App\Book\Application\Exception\CannotReachServiceException;
+use App\Book\Application\Exception\InvalidSearchDataException;
+use App\Book\Application\Service\DTO\BookDTO;
+use App\Book\Infrastructure\DTO\BookSearchCriteria;
 
 interface BookService
 {

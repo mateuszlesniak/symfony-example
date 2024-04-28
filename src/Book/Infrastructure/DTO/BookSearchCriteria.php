@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Book\Shared\DTO;
+namespace App\Book\Infrastructure\DTO;
 
-use App\Book\Shared\Exception\InvalidSearchCriteriaException;
+use App\Book\Application\Exception\InvalidSearchCriteriaException;
 
 class BookSearchCriteria
 {

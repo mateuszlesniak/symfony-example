@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Book\UI\Command;
 
-enum Parameters: string
+enum Parameters
 {
-    case TITLE = 'title';
-    case AUTHOR = 'author';
-    case SORT = 'sort';
+    case TITLE;
+    case AUTHOR;
+    case SORT;
 }

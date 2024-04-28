@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Book\OpenLibrary\DTO;
+namespace App\Book\Application\Service\DTO;
 
 class BookDTO
 {

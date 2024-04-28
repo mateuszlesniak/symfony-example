@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Book\OpenLibrary\SearchQuery;
+namespace App\Book\Infrastructure\OpenLibrary\SearchQuery;
 
-use App\Book\Shared\DTO\BookSearchCriteria;
-use App\Book\Shared\Exception\InvalidSearchDataException;
-use App\Book\Shared\Search\BookSearchQueryBuilder;
+use App\Book\Application\Exception\InvalidSearchDataException;
+use App\Book\Application\SearchQuery\BookSearchQueryBuilder;
+use App\Book\Infrastructure\DTO\BookSearchCriteria;
 
-final class BookSearchBuilder implements BookSearchQueryBuilder
+final class OpenLibrarySearchQueryBuilder implements BookSearchQueryBuilder
 {
     public const FIELD_TITLE = 'title';
     public const FIELD_AUTHOR = 'author';
@@ -22,7 +22,7 @@ final class BookSearchBuilder implements BookSearchQueryBuilder
     ];
 
     #[\Override]
-    public function addTitle(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
+    public function addTitle(BookSearchCriteria $bookSearchCriteria): OpenLibrarySearchQueryBuilder
     {
         if ($bookSearchCriteria->getTitle()) {
             $this->data[self::FIELD_TITLE] = mb_strtolower($bookSearchCriteria->getTitle());
@@ -32,7 +32,7 @@ final class BookSearchBuilder implements BookSearchQueryBuilder
     }
 
     #[\Override]
-    public function addAuthor(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
+    public function addAuthor(BookSearchCriteria $bookSearchCriteria): OpenLibrarySearchQueryBuilder
     {
         if ($bookSearchCriteria->getAuthor()) {
             $this->data[self::FIELD_AUTHOR] = mb_strtolower($bookSearchCriteria->getAuthor());
@@ -42,7 +42,7 @@ final class BookSearchBuilder implements BookSearchQueryBuilder
     }
 
     #[\Override]
-    public function sort(BookSearchCriteria $bookSearchCriteria): BookSearchBuilder
+    public function sort(BookSearchCriteria $bookSearchCriteria): OpenLibrarySearchQueryBuilder
     {
         switch ($bookSearchCriteria->getSort()) {
             case BookSearchCriteria::OPTION_SEARCH_ASC:

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Book\UI\Command\ResultFormatter;
 
-use App\Book\OpenLibrary\DTO\BookDTO;
+use App\Book\Application\Service\DTO\BookDTO;
 
 interface BookFormatter
 {

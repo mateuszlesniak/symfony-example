@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Book\UI\Command\Parameter;
+namespace App\Book\UI\Command\SearchParameter;
 
-use App\Book\Shared\DTO\BookSearchCriteria;
+use App\Book\Infrastructure\DTO\BookSearchCriteria;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Book\UI\Command;
 
-use App\Book\BookService;
-use App\Book\Shared\DTO\BookSearchCriteria;
-use App\Book\Shared\Exception\CannotReachServiceException;
-use App\Book\Shared\Exception\InvalidSearchDataException;
-use App\Book\UI\Command\Parameter\BookSearchCommandParameter;
+use App\Book\Application\Exception\CannotReachServiceException;
+use App\Book\Application\Exception\InvalidSearchDataException;
+use App\Book\Application\Service\BookService;
+use App\Book\Infrastructure\DTO\BookSearchCriteria;
+use App\Book\UI\Command\SearchParameter\BookSearchCommandParameter;
 use App\Book\UI\Command\ResultFormatter\BookFormatter;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -35,9 +35,9 @@ final class OpenLibrarySearchCommand extends Command
         $this
             ->setDescription('CLI command which allows search books in Open Library website')
             ->setHelp('See: https://openlibrary.org/')
-            ->addOption(Parameters::TITLE->value, 't', InputArgument::OPTIONAL)
-            ->addOption(Parameters::AUTHOR->value, 'a', InputArgument::OPTIONAL)
-            ->addOption(Parameters::SORT->value, null, InputArgument::OPTIONAL);
+            ->addOption(Parameters::TITLE->name, 't', InputArgument::OPTIONAL)
+            ->addOption(Parameters::AUTHOR->name, 'a', InputArgument::OPTIONAL)
+            ->addOption(Parameters::SORT->name, null, InputArgument::OPTIONAL);
     }
 
     #[\Override]

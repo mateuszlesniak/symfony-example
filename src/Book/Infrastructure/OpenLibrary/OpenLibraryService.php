@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Book\OpenLibrary;
+namespace App\Book\Infrastructure\OpenLibrary;
 
-use App\Book\BookService;
-use App\Book\OpenLibrary\Client\OpenLibraryClient;
-use App\Book\OpenLibrary\DTO\BookDTO;
-use App\Book\OpenLibrary\Transformer\OpenLibraryResponseTransformer;
-use App\Book\Shared\DTO\BookSearchCriteria;
-use App\Book\Shared\Exception\CannotReachServiceException;
-use App\Book\Shared\Exception\InvalidSearchDataException;
-use App\Book\Shared\Search\BookSearchQueryBuilder;
+use App\Book\Application\Exception\CannotReachServiceException;
+use App\Book\Application\Exception\InvalidSearchDataException;
+use App\Book\Application\SearchQuery\BookSearchQueryBuilder;
+use App\Book\Application\Service\BookService;
+use App\Book\Application\Service\DTO\BookDTO;
+use App\Book\Infrastructure\DTO\BookSearchCriteria;
+use App\Book\Infrastructure\OpenLibrary\Client\OpenLibraryClient;
+use App\Book\Infrastructure\OpenLibrary\Transformer\OpenLibraryResponseTransformer;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 
 final readonly class OpenLibraryService implements BookService

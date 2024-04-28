@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Book\OpenLibrary\Transformer;
+namespace App\Book\Infrastructure\OpenLibrary\Transformer;
 
-use App\Book\OpenLibrary\Client\OpenLibraryFactory;
-use App\Book\OpenLibrary\DTO\BookDTO;
+use App\Book\Application\Service\DTO\BookDTO;
+use App\Book\Infrastructure\OpenLibrary\Client\OpenLibraryFactory;
 
 final readonly class OpenLibraryResponseTransformer
 {
