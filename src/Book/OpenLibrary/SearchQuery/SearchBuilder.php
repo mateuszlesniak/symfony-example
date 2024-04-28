@@ -2,8 +2,9 @@
 
 namespace App\Book\OpenLibrary\SearchQuery;
 
-use App\Book\OpenLibrary\Client\Exception\InvalidSearchDataException;
 use App\Book\Search\SearchBuilderInterface;
+use App\Book\Shared\DTO\BookSearchCriteria;
+use App\Book\Shared\Exception\InvalidSearchDataException;
 
 class SearchBuilder implements SearchBuilderInterface
 {
@@ -18,33 +19,35 @@ class SearchBuilder implements SearchBuilderInterface
         'limit' => 10,
     ];
 
-    #[\Override] public function addTitle(?string $title = null): SearchBuilderInterface
+    #[\Override] public function addTitle(BookSearchCriteria $bookSearchCriteria): SearchBuilderInterface
     {
-        $this->data[self::FIELD_TITLE] = mb_strtolower($title);
+        $this->data[self::FIELD_TITLE] = mb_strtolower($bookSearchCriteria->getTitle());
 
         return $this;
     }
 
-    #[\Override] public function addAuthor(?string $author = null): SearchBuilderInterface
+    #[\Override] public function addAuthor(BookSearchCriteria $bookSearchCriteria): SearchBuilderInterface
     {
-        $this->data[self::FIELD_AUTHOR] = mb_strtolower($author);
+        $this->data[self::FIELD_AUTHOR] = mb_strtolower($bookSearchCriteria->getAuthor());
 
         return $this;
     }
 
-    #[\Override] public function setSort(?string $sort = null): void
+    #[\Override] public function sort(BookSearchCriteria $bookSearchCriteria): SearchBuilderInterface
     {
-        switch ($sort) {
-            case 'asc':
+        switch ($bookSearchCriteria->getSort()) {
+            case BookSearchCriteria::OPTION_SEARCH_ASC:
                 $sort = 'new';
 
                 break;
-            case 'desc':
+            case BookSearchCriteria::OPTION_SEARCH_DESC:
             default:
                 $sort = 'old';
         }
 
         $this->data[self::FIELD_SORT] = $sort;
+
+        return $this;
     }
 
     /**

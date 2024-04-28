@@ -4,12 +4,12 @@ namespace App\Book\OpenLibrary\Client;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class OpenLibraryApi implements OpenLibraryApiInterface
+readonly final class OpenLibraryApi implements OpenLibraryClient
 {
     private const ENDPOINT = 'https://openlibrary.org/search.json';
 
     public function __construct(
-        private readonly HttpClientInterface $httpClient,
+        private HttpClientInterface $httpClient,
     )
     {
     }
@@ -26,5 +26,4 @@ class OpenLibraryApi implements OpenLibraryApiInterface
 
         return $response->toArray();
     }
-
 }

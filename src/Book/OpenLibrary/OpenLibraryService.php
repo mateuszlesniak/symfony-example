@@ -2,56 +2,47 @@
 
 namespace App\Book\OpenLibrary;
 
-use App\Book\BookServiceInterface;
-use App\Book\OpenLibrary\Client\Exception\InvalidSearchDataException;
-use App\Book\OpenLibrary\Client\OpenLibraryApiInterface;
-use App\Book\OpenLibrary\Dto\BookDto;
-use App\Book\OpenLibrary\Formatter\FormatterInterface;
+use App\Book\BookService;
+use App\Book\OpenLibrary\Client\OpenLibraryClient;
+use App\Book\OpenLibrary\DTO\BookDTO;
+use App\Book\OpenLibrary\Transformer\OpenLibraryResponseTransformer;
 use App\Book\Search\SearchBuilderInterface;
+use App\Book\Shared\DTO\BookSearchCriteria;
+use App\Book\Shared\Exception\CannotReachServiceException;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 
-final class OpenLibraryService implements BookServiceInterface
+final readonly class OpenLibraryService implements BookService
 {
     public function __construct(
-        private readonly SearchBuilderInterface $builder,
-        private readonly OpenLibraryApiInterface $openLibraryApi,
-        private readonly FormatterInterface $formatter,
+        private SearchBuilderInterface $builder,
+        private OpenLibraryClient $openLibraryApi,
+        private OpenLibraryResponseTransformer $responseTransformer,
     )
     {
     }
 
     /**
-     * @param string|null $title
-     * @param string|null $author
-     * @param string|null $sort
+     * @param BookSearchCriteria $bookSearchCriteria
      *
-     * @return array<BookDto>
+     * @return array<BookDTO>
      *
-     * @throws InvalidSearchDataException
+     * @throws CannotReachServiceException
      */
-    #[\Override] public function searchBooks(
-        ?string $title = null,
-        ?string $author = null,
-        ?string $sort = null,
-    ): array
+    #[\Override] public function searchBooks(BookSearchCriteria $bookSearchCriteria): array
     {
         $this->builder
-            ->addTitle($title)
-            ->addAuthor($author)
-            ->setSort($sort);
+            ->addTitle($bookSearchCriteria)
+            ->addAuthor($bookSearchCriteria)
+            ->sort($bookSearchCriteria);
 
         $searchQuery = $this->builder->getSearchQuery();
 
         try {
             $response = $this->openLibraryApi->search($searchQuery)['docs'];
 
-            array_walk($response, function (array &$doc) {
-                $doc = $this->formatter->format($doc);
-            });
-
-            return $response;
+            return $this->responseTransformer->transformResponseToBookDTO($response);
         } catch (ExceptionInterface $exception) {
-            throw new InvalidSearchDataException(); //example of specific exception used in project
+            throw new CannotReachServiceException();
         }
 
     }

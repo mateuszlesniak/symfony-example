@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Book\Command;
+namespace App\Book\UI\Command;
 
-use App\Book\BookServiceInterface;
-use App\Book\Command\Decorator\BookCommandDecoratorInterface;
-use App\Book\OpenLibrary\Client\Exception\InvalidSearchDataException;
+use App\Book\BookService;
+use App\Book\Shared\DTO\BookSearchCriteria;
+use App\Book\Shared\Exception\InvalidSearchDataException;
+use App\Book\UI\Command\Parameter\BookSearchCommandParameter;
+use App\Book\UI\Command\ResultFormatter\BookFormatter;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -17,9 +19,10 @@ final class OpenLibrarySearchCommand extends Command
 {
 
     public function __construct(
-        private readonly BookServiceInterface $bookApi,
-        /** @var BookCommandDecoratorInterface[] $searchOptionDecorators */
-        private readonly iterable $searchOptionDecorators,
+        private readonly BookService $bookApi,
+        private readonly BookFormatter $bookFormatter,
+        /** @var BookSearchCommandParameter[] $searchOptionPlugins */
+        private readonly iterable $searchOptionPlugins,
     )
     {
         parent::__construct();
@@ -39,15 +42,11 @@ final class OpenLibrarySearchCommand extends Command
     {
 
         try {
-            $searchParameters = $this->getSearchParameters($input);
+            $bookSearchCriteria = $this->getSearchCriteria($input);
 
-            $response = $this->bookApi->searchBooks(
-                $searchParameters[Parameters::TITLE->value] ?? null,
-                $searchParameters[Parameters::AUTHOR->value] ?? null,
-                $searchParameters[Parameters::SORT->value],
-            );
+            $books = $this->bookApi->searchBooks($bookSearchCriteria);
 
-            $output->writeln(sprintf('Found %d book(s)', count($response)));
+            $output->writeln(sprintf('Found %d book(s)', count($books)));
             $output->writeln('----------------');
         } catch (InvalidSearchDataException $exception) {
             $output->writeln(sprintf('<fg=yellow>%s</> <fg=red>%s</>', $exception->getCode(), $exception->getMessage()));
@@ -59,26 +58,21 @@ final class OpenLibrarySearchCommand extends Command
             return Command::FAILURE;
         }
 
-        foreach ($response as $book) {
-            $output->writeln(sprintf(
-                    '<fg=green>%s</> <fg=yellow>%s</>',
-                    $book->getAuthors(),
-                    $book->getTitle(),
-                )
-            );
+        foreach ($books as $book) {
+            $output->writeln($this->bookFormatter->format($book));
         }
 
         return Command::SUCCESS;
     }
 
-    private function getSearchParameters(InputInterface $input): array
+    private function getSearchCriteria(InputInterface $input): BookSearchCriteria
     {
-        $searchParameters = [];
+        $bookSearchCriteria = new BookSearchCriteria();
 
-        foreach ($this->searchOptionDecorators as $optionDecorator) {
-            $optionDecorator->decorate($input, $searchParameters);
+        foreach ($this->searchOptionPlugins as $plugin) {
+            $plugin->expand($input, $bookSearchCriteria);
         }
 
-        return $searchParameters;
+        return $bookSearchCriteria;
     }
 }

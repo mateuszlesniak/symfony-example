@@ -2,7 +2,7 @@
 
 namespace App\Book\OpenLibrary\Client;
 
-interface OpenLibraryApiInterface
+interface OpenLibraryClient
 {
     public function search(array $queryParameters):array;
 }
