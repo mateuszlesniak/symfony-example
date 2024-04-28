@@ -8,6 +8,7 @@ use App\Book\OpenLibrary\DTO\BookDTO;
 use App\Book\OpenLibrary\Transformer\OpenLibraryResponseTransformer;
 use App\Book\Shared\DTO\BookSearchCriteria;
 use App\Book\Shared\Exception\CannotReachServiceException;
+use App\Book\Shared\Exception\InvalidSearchDataException;
 use App\Book\Shared\Search\BookSearchQueryBuilder;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 
@@ -27,6 +28,7 @@ final readonly class OpenLibraryService implements BookService
      * @return array<BookDTO>
      *
      * @throws CannotReachServiceException
+     * @throws InvalidSearchDataException
      */
     #[\Override] public function searchBooks(BookSearchCriteria $bookSearchCriteria): array
     {

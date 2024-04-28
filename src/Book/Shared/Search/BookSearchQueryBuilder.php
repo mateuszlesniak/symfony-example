@@ -3,6 +3,7 @@
 namespace App\Book\Shared\Search;
 
 use App\Book\Shared\DTO\BookSearchCriteria;
+use App\Book\Shared\Exception\InvalidSearchDataException;
 
 interface BookSearchQueryBuilder
 {
@@ -12,5 +13,10 @@ interface BookSearchQueryBuilder
 
     public function sort(BookSearchCriteria $bookSearchCriteria): self;
 
+    /**
+     * @return array<string, string>
+     *
+     * @throws InvalidSearchDataException
+     */
     public function getSearchQuery(): array;
 }

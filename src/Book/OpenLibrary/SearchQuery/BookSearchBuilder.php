@@ -6,7 +6,7 @@ use App\Book\Shared\DTO\BookSearchCriteria;
 use App\Book\Shared\Exception\InvalidSearchDataException;
 use App\Book\Shared\Search\BookSearchQueryBuilder;
 
-class BookSearchBuilder implements BookSearchQueryBuilder
+final class BookSearchBuilder implements BookSearchQueryBuilder
 {
     const FIELD_TITLE = 'title';
     const FIELD_AUTHOR = 'author';
@@ -51,7 +51,8 @@ class BookSearchBuilder implements BookSearchQueryBuilder
     }
 
     /**
-     * @return array
+     * @return array<string, string>
+     *
      * @throws InvalidSearchDataException
      */
     #[\Override] public function getSearchQuery(): array

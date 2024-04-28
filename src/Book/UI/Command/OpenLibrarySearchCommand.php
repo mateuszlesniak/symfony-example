@@ -4,6 +4,7 @@ namespace App\Book\UI\Command;
 
 use App\Book\BookService;
 use App\Book\Shared\DTO\BookSearchCriteria;
+use App\Book\Shared\Exception\CannotReachServiceException;
 use App\Book\Shared\Exception\InvalidSearchDataException;
 use App\Book\UI\Command\Parameter\BookSearchCommandParameter;
 use App\Book\UI\Command\ResultFormatter\BookFormatter;
@@ -48,7 +49,7 @@ final class OpenLibrarySearchCommand extends Command
 
             $output->writeln(sprintf('Found %d book(s)', count($books)));
             $output->writeln('----------------');
-        } catch (InvalidSearchDataException $exception) {
+        } catch (InvalidSearchDataException|CannotReachServiceException $exception) {
             $output->writeln(sprintf('<fg=yellow>%s</> <fg=red>%s</>', $exception->getCode(), $exception->getMessage()));
 
             return Command::FAILURE;
